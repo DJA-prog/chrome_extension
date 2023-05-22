@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "Domain-Specific Extension",
+    "version": "1.0",
+    "description": "Extension active on specific domain websites",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.dino-dev/*"
+            ],
+            "js": [
+                "content.js"
+            ]
+        }
+    ],
+    "page_action": {
+        "default_icon": {
+            "16": "icon16.png",
+            "48": "icon48.png"
+        },
+        "default_title": "Domain-Specific Extension"
+    }
+}
