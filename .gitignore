@@ -1,4 +1,5 @@
 api/venv
 icons
 api/attendees
-api/ssl_*
+api/ssl_cerificate.crt
+api/ssl_private_key.key
