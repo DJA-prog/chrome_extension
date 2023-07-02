@@ -8,7 +8,7 @@ CORS(app)
 
 def write_attendants_to_file(participants):
     today = date.today().strftime("%Y-%m-%d")
-    filename = f"attendees_{today}.txt"
+    filename = f"attendees/attendees_{today}.txt"
 
     with open(filename, "a+") as file:
         file.seek(0)
@@ -29,4 +29,4 @@ def receive_attendants():
 if __name__ == '__main__':
     context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
     context.load_cert_chain('ssl_certificate.crt', 'ssl_private_key.key')
-    app.run(host='dino-dev', port=5000, ssl_context=context)
+    app.run(host='dino-dev', port=5000, ssl_context=context, debug=True)

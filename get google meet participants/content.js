@@ -1,34 +1,21 @@
-// content.js
-
-// Function to extract participant names from the DOM
-function extractParticipantNames() {
-    const participantsElement = document.querySelector('[jsname="jrQDbd"]');
-    const participantNames = [];
-
-    if (participantsElement) {
-        const participantListItems = participantsElement.querySelectorAll('[data-participant-id]');
-
-        participantListItems.forEach((item) => {
-            const nameElement = item.querySelector('.zWGUib');
-            if (nameElement) {
-                const name = nameElement.textContent.trim();
-                participantNames.push(name);
-            }
-        });
-    }
-
-    return participantNames;
+function openAttendace() {
+    // open partisipants side panel
 }
 
-// Send participant names to the background script
-function sendParticipantNames() {
-    const participantNames = extractParticipantNames();
-    chrome.runtime.sendMessage({ participantNames });
+function getAttendants() {
+    openAttendace();
+    var element = document.querySelector('[role="list"]');
+    var names = element.getElementsByClassName('zWGUib');
+    var nameList = Array.from(names).map(function (element) {
+        return element.textContent;
+    });
+
+    var uniqueNames = [...new Set(nameList)];
+    return JSON.stringify({ participants: uniqueNames });
 }
 
-// Listen for a message from the background script to trigger participant name retrieval
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-    if (request.message === 'getParticipantNames') {
-        sendParticipantNames();
+    if (request.action === 'getAttendants') {
+        sendResponse({ attendants: getAttendants() });
     }
 });
